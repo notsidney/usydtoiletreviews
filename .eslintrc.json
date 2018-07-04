@@ -3,6 +3,7 @@
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/destructuring-assignment": ["never"],
-        "react/jsx-one-expression-per-line": ["off"]
+        "react/jsx-one-expression-per-line": ["off"],
+        "react/prop-types": ["off"]
     }
 }

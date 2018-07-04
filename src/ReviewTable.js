@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './ReviewTable.css';
+import ReviewTableSortableHeader from './ReviewTableSortableHeader';
 
 class ReviewTable extends Component {
   constructor(props) {
@@ -12,7 +13,10 @@ class ReviewTable extends Component {
       posts: {},
       displayOrder: [],
       originalOrder: [],
+      sortedBy: 'timestamp',
     };
+
+    this.sortTable = this.sortTable.bind(this);
   }
 
   componentDidMount() {
@@ -60,7 +64,10 @@ class ReviewTable extends Component {
     });
 
     if (reversed) sortedKeys.reverse();
-    this.setState({ displayOrder: sortedKeys });
+    this.setState({
+      displayOrder: sortedKeys,
+      sortedBy: cat,
+    });
   }
 
   render() {
@@ -75,8 +82,8 @@ class ReviewTable extends Component {
     // Otherwise, render content
     // Change source of displayOrder array
     let displayOrder;
-    if (this.state.searchTerm !== '') {
-      displayOrder = this.search(this.state.searchTerm);
+    if (this.props.searchTerm !== '') {
+      displayOrder = this.search(this.props.searchTerm);
     } else {
       displayOrder = this.state.displayOrder;
     }
@@ -97,7 +104,7 @@ class ReviewTable extends Component {
           </td>
           <td>{item.building}</td>
           <td>{item.level}</td>
-          <td>{item.type}</td>
+          <td>{item.type.substr(0, 6)}</td>
           <td>{item.rating}</td>
           <td>{item.timestamp}</td>
           <td>{item.notes.replace(/(\[|\]|\(|\))/g, '')}</td>
@@ -108,75 +115,58 @@ class ReviewTable extends Component {
     });
 
     return (
-      <React.Fragment>
-        <input
-          type="text"
-          className="search-box"
-          placeholder="Find a toilet…"
-          onChange={e => this.setState({searchTerm: e.target.value})}
-        />
+      <div className="table-container">
+        <table>
+          <colgroup>
+            <col className="col-actions" />
+            <col className="col-building" />
+            <col className="col-level" />
+            <col className="col-type" />
+            <col className="col-rating" />
+            <col className="col-timestamp" />
+            <col className="col-notes" />
+          </colgroup>
 
-        <div className="table-container">
-
-          <table>
-            <colgroup>
-              <col className="col-actions" />
-              <col className="col-building" />
-              <col className="col-level" />
-              <col className="col-type" />
-              <col className="col-rating" />
-              <col className="col-timestamp" />
-              <col className="col-notes" />
-            </colgroup>
-
-            <thead>
-              <tr>
-                <th>Actions</th>
-                <th
-                  className="sortable"
-                  onClick={e => this.sortTable('building')}
-                >
-                  Building
-                </th>
-                <th
-                  className="sortable"
-                  onClick={e => this.sortTable('level')}
-                >
-                  Level
-                </th>
-                <th
-                  className="sortable"
-                  onClick={e => this.sortTable('type')}
-                >
-                  Type
-                </th>
-                <th
-                  className="sortable"
-                  onClick={e => this.sortTable('rating')}
-                >
-                  Rating
-                </th>
-                <th
-                  className="sortable"
-                  onClick={e => this.sortTable('timestamp')}
-                >
-                  Timestamp
-                </th>
-                <th
-                  className="sortable"
-                  onClick={e => this.sortTable('notes')}
-                >
-                  Notes
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {tableRows}
-            </tbody>
-          </table>
-
-        </div>
-      </React.Fragment>
+          <thead>
+            <tr>
+              <th>Actions</th>
+              <ReviewTableSortableHeader
+                title="Building"
+                clickHandler={this.sortTable}
+                sortedBy={this.state.sortedBy}
+              />
+              <ReviewTableSortableHeader
+                title="Level"
+                clickHandler={this.sortTable}
+                sortedBy={this.state.sortedBy}
+              />
+              <ReviewTableSortableHeader
+                title="Type"
+                clickHandler={this.sortTable}
+                sortedBy={this.state.sortedBy}
+              />
+              <ReviewTableSortableHeader
+                title="Rating"
+                clickHandler={this.sortTable}
+                sortedBy={this.state.sortedBy}
+              />
+              <ReviewTableSortableHeader
+                title="Timestamp"
+                clickHandler={this.sortTable}
+                sortedBy={this.state.sortedBy}
+              />
+              <ReviewTableSortableHeader
+                title="Notes"
+                clickHandler={this.sortTable}
+                sortedBy={this.state.sortedBy}
+              />
+            </tr>
+          </thead>
+          <tbody>
+            {tableRows}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

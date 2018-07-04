@@ -1,0 +1,20 @@
+th.sortable {
+  cursor: pointer;
+}
+th.sortable:hover {
+  background-color: rgba(230,70,38,.1);
+}
+
+th.sortable svg {
+  vertical-align: middle;
+
+  width: 1.125rem;
+  height: 1.125rem;
+
+  fill: #E64626;
+
+  transition: transform .2s;
+}
+th.sortable.reversed svg {
+  transform: rotate(180deg);
+}

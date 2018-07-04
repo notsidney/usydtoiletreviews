@@ -1,21 +1,54 @@
-.App {
+.app {
+  box-sizing: border-box;
+  max-width: 65rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+
   font-family: 'IBM Plex Sans Condensed', sans-serif;
+  color: #333;
 }
 
-.App-logo {
+.app-header {
+  display: flex;
+  align-items: flex-end;
+}
+
+.logo-container {
+  box-sizing: border-box;
+
+  width: 23.75rem;
+  height: 6.25rem;
+  padding: 1.125rem 2.0625rem 0 1.5625rem;
+
+  background-color: #E64626;
+}
+
+.logo {
   height: 58px;
 }
 
-.App-header {
-  background-color: #E64626;
-  padding: 20px 0 36px 100px;
-  color: white;
-}
+.search-box {
+  flex: 1;
 
-.App-title {
-  font-size: 1.5em;
-}
+  height: 3.125rem;
+  padding: 0 1rem 0 3.25rem;
+  margin: 0;
+  border-radius: 0;
 
-.App-intro {
-  font-size: large;
+  background-image: url('search.svg');
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  background-position: .75rem 50%;
+  background-color: #333;
+  color: #fff;
+  border: 0;
+
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 3.125rem;
+}
+.search-box::placeholder {
+  color: #fff;
+  opacity: 1;
 }

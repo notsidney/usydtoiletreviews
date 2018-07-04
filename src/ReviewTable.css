@@ -1,13 +1,24 @@
+table {
+  margin: 1.5rem auto;
+
+  border-spacing: 0;
+}
+
+th, td {
+  text-align: left;
+
+  padding: .625rem 1.25rem .625rem 0;
+  min-height: 3.125rem;
+  border-bottom: .0625rem solid #DDD;
+}
+
 th {
   font-family: 'IBM Plex Mono', monospace;
   font-size: .875rem;
   font-weight: 600;
   color: #E64626;
-}
 
-th, td {
-  text-align: left;
-  padding: .625rem;
+  border-bottom-width: .125rem;
 }
 
 td:nth-of-type(2),
@@ -15,6 +26,11 @@ td:nth-of-type(5) {
   font-weight: 600;
 }
 
-tr {
-  border-width: .0625rem;
+th:last-of-type,
+td:last-of-type {
+  padding-right: 0;
+}
+
+h1.loading {
+  text-align: center;
 }

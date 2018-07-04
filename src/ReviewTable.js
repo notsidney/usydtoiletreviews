@@ -7,48 +7,57 @@ class ReviewTable extends Component {
     super(props);
 
     this.state = {
-      downloadProgress: 0,
       downloading: true,
-      data: null,
-    }
+      page_id: null,
+      posts: {},
+      displayOrder: [],
+      originalOrder: [],
+    };
   }
 
   componentDidMount() {
     // axios.get('https://usydtoiletreviews-api.herokuapp.com/', {
-    axios.get('posts.json', {
-      // Send progress to App state
-      onDownloadProgress: (progressEvent) => {
-        let progress = Math.floor(
-          progressEvent.loaded / progressEvent.total * 100);
-        this.setState({downloadProgress: progress});
-      }
-    })
+    axios.get('posts.json')
       .then((response) => {
-        // Cache to localStorage
-        // localStorage.setItem('data', JSON.stringify(response.data));
+        // Loop through each post and store it as a key-value pair
+        const posts = {};
+        // Store original order here
+        const displayOrder = [];
+        response.data.posts.forEach((item) => {
+          posts[item.id] = item;
+          displayOrder.push(item.id);
+        });
         // Add to App state
         this.setState({
           downloading: false,
-          data: response.data
+          page_id: response.data.page_id,
+          posts,
+          displayOrder,
+          originalOrder: displayOrder,
         });
       })
       .catch(error => alert(`Error loading data:\n${error}`));
   }
 
   render() {
-    const tableRows = this.state.downloading
-      ? (
-        <tr>
-          <td>
-            Loading…
-          </td>
-        </tr>
-      )
-      : this.state.data.posts.map(item => (
-        <tr key={item.id}>
+    // Render something else when downloading
+    if (this.state.downloading) {
+      return (
+        <h1 className="loading">
+          Loading…
+        </h1>
+      );
+    }
+    // Otherwise, render content
+    // Renders based on order of IDs in displayOrder in state
+    const tableRows = this.state.displayOrder.map((id) => {
+      const item = this.state.posts[id];
+
+      const tableRow = item !== undefined ? (
+        <tr key={id}>
           <td>
             <a
-              href={`https://www.facebook.com/${this.state.data.page_id}/posts/${item.id}`}
+              href={`https://www.facebook.com/${this.state.page_id}/posts/${item.id}`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -60,9 +69,12 @@ class ReviewTable extends Component {
           <td>{item.type}</td>
           <td>{item.rating}</td>
           <td>{item.timestamp}</td>
-          <td>{item.notes}</td>
+          <td>{item.notes.replace(/(\[|\]|\(|\))/g, '')}</td>
         </tr>
-      ));
+      ) : null;
+
+      return tableRow;
+    });
 
     return (
       <table>

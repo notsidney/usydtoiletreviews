@@ -39,17 +39,36 @@ th {
   cursor: default;
 }
 
-.col-actions { width: 6.75rem; }
-.col-building { width: 16rem; }
+.col-actions { width: 6rem; }
+.col-building { width: 16.375rem; }
 .col-level { width: 7.5rem; }
 .col-type { width: 5.625rem; }
 .col-rating { width: 5.625rem; }
 .col-timestamp { width: 9rem; }
-.col-notes { width: 12rem; }
+.col-notes { width: 12.375rem; }
 
 td:nth-of-type(2),
 td:nth-of-type(5) {
   font-weight: 600;
+}
+
+td svg {
+  fill: rgba(0,0,0,.53);
+  transition: fill .2s;
+}
+td svg:hover,
+td svg:active {
+  fill: #E64626;
+}
+
+td svg.fb {
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: .125rem 1.5rem .125rem 0;
+}
+td svg.place {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 h1.loading {

@@ -1,0 +1,20 @@
+th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .875rem;
+  font-weight: 600;
+  color: #E64626;
+}
+
+th, td {
+  text-align: left;
+  padding: .625rem;
+}
+
+td:nth-of-type(2),
+td:nth-of-type(5) {
+  font-weight: 600;
+}
+
+tr {
+  border-width: .0625rem;
+}

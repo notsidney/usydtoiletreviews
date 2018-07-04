@@ -34,9 +34,33 @@ class ReviewTable extends Component {
           posts,
           displayOrder,
           originalOrder: displayOrder,
+          searchTerm: '',
         });
       })
       .catch(error => alert(`Error loading data:\n${error}`));
+  }
+
+  search(term) {
+    const termLow = term.toLowerCase();
+    const displayOrder = this.state.displayOrder.filter(
+      id => this.state.posts[id].building.toLowerCase().indexOf(termLow) !== -1
+    );
+    return displayOrder;
+  }
+
+  sortTable(cat, reversed = false) {
+    const sortedKeys = Object.keys(this.state.posts).sort((a, b) => {
+      // Deal with blank strings
+      if (this.state.posts[a][cat] === '') return 1;
+      if (this.state.posts[b][cat] === '') return -1;
+      // Normal sorting
+      if (this.state.posts[a][cat] < this.state.posts[b][cat]) return -1;
+      if (this.state.posts[a][cat] > this.state.posts[b][cat]) return 1;
+      return 0;
+    });
+
+    if (reversed) sortedKeys.reverse();
+    this.setState({ displayOrder: sortedKeys });
   }
 
   render() {
@@ -49,8 +73,15 @@ class ReviewTable extends Component {
       );
     }
     // Otherwise, render content
-    // Renders based on order of IDs in displayOrder in state
-    const tableRows = this.state.displayOrder.map((id) => {
+    // Change source of displayOrder array
+    let displayOrder;
+    if (this.state.searchTerm !== '') {
+      displayOrder = this.search(this.state.searchTerm);
+    } else {
+      displayOrder = this.state.displayOrder;
+    }
+    // Otherwise, based on order of IDs in displayOrder in state
+    const tableRows = displayOrder.map((id) => {
       const item = this.state.posts[id];
 
       const tableRow = item !== undefined ? (
@@ -77,22 +108,75 @@ class ReviewTable extends Component {
     });
 
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Actions</th>
-            <th>Building</th>
-            <th>Level</th>
-            <th>Type</th>
-            <th>Rating</th>
-            <th>Date posted</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableRows}
-        </tbody>
-      </table>
+      <React.Fragment>
+        <input
+          type="text"
+          className="search-box"
+          placeholder="Find a toilet…"
+          onChange={e => this.setState({searchTerm: e.target.value})}
+        />
+
+        <div className="table-container">
+
+          <table>
+            <colgroup>
+              <col className="col-actions" />
+              <col className="col-building" />
+              <col className="col-level" />
+              <col className="col-type" />
+              <col className="col-rating" />
+              <col className="col-timestamp" />
+              <col className="col-notes" />
+            </colgroup>
+
+            <thead>
+              <tr>
+                <th>Actions</th>
+                <th
+                  className="sortable"
+                  onClick={e => this.sortTable('building')}
+                >
+                  Building
+                </th>
+                <th
+                  className="sortable"
+                  onClick={e => this.sortTable('level')}
+                >
+                  Level
+                </th>
+                <th
+                  className="sortable"
+                  onClick={e => this.sortTable('type')}
+                >
+                  Type
+                </th>
+                <th
+                  className="sortable"
+                  onClick={e => this.sortTable('rating')}
+                >
+                  Rating
+                </th>
+                <th
+                  className="sortable"
+                  onClick={e => this.sortTable('timestamp')}
+                >
+                  Timestamp
+                </th>
+                <th
+                  className="sortable"
+                  onClick={e => this.sortTable('notes')}
+                >
+                  Notes
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {tableRows}
+            </tbody>
+          </table>
+
+        </div>
+      </React.Fragment>
     );
   }
 }

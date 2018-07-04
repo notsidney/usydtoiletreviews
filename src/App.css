@@ -24,12 +24,14 @@
 }
 
 .logo {
-  height: 58px;
+  max-height: 58px;
 }
 
 .search-box {
+  box-sizing: border-box;
   flex: 1;
 
+  width: 100%;
   height: 3.125rem;
   padding: 0 1rem 0 3.25rem;
   margin: 0;
@@ -51,4 +53,27 @@
 .search-box::placeholder {
   color: #fff;
   opacity: 1;
+}
+
+@media (max-width: 48rem) {
+  .app-header {
+    display: block;
+  }
+}
+
+@media (max-width: 26.25rem) {
+  .app-header {
+    width: 100vw;
+    margin-left: -1.25rem;
+  }
+
+  .logo-container {
+    padding: 1rem .75rem;
+    width: 100%;
+    height: auto;
+  }
+  .logo {
+    width: 100%;
+    height: auto;
+  }
 }

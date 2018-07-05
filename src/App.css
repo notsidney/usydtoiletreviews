@@ -29,6 +29,9 @@
 
 .logo {
   max-height: 58px;
+
+  pointer-events: none;
+  user-select: none;
 }
 
 .search-box {
@@ -96,6 +99,9 @@
   width: auto;
   height: 2.5rem;
   margin-right: 6.5rem;
+
+  pointer-events: none;
+  user-select: none;
 }
 
 .footer-like {

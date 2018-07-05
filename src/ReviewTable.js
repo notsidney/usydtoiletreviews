@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import axios from 'axios';
 import './ReviewTable.css';
 import ReviewTableSortableHeader from './ReviewTableSortableHeader';
+import ReviewTableRow from './ReviewTableRow';
 
-class ReviewTable extends Component {
+class ReviewTable extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -12,7 +13,6 @@ class ReviewTable extends Component {
       page_id: null,
       posts: {},
       displayOrder: [],
-      originalOrder: [],
       sortedBy: 'timestamp',
     };
 
@@ -20,8 +20,7 @@ class ReviewTable extends Component {
   }
 
   componentDidMount() {
-    // axios.get('https://usydtoiletreviews-api.herokuapp.com/', {
-    axios.get('posts.json')
+    axios.get('https://usydtoiletreviews-api.herokuapp.com/')
       .then((response) => {
         // Loop through each post and store it as a key-value pair
         const posts = {};
@@ -37,8 +36,6 @@ class ReviewTable extends Component {
           page_id: response.data.page_id,
           posts,
           displayOrder,
-          originalOrder: displayOrder,
-          searchTerm: '',
         });
       })
       .catch(error => alert(`Error loading data:\n${error}`));
@@ -47,7 +44,7 @@ class ReviewTable extends Component {
   search(term) {
     const termLow = term.toLowerCase();
     const displayOrder = this.state.displayOrder.filter(
-      id => this.state.posts[id].building.toLowerCase().indexOf(termLow) !== -1
+      id => this.state.posts[id].building.toLowerCase().indexOf(termLow) !== -1,
     );
     return displayOrder;
   }
@@ -75,7 +72,7 @@ class ReviewTable extends Component {
     if (this.state.downloading) {
       return (
         <h1 className="loading">
-          Loading…
+          Loading data…
         </h1>
       );
     }
@@ -92,29 +89,18 @@ class ReviewTable extends Component {
       const item = this.state.posts[id];
 
       const tableRow = item !== undefined ? (
-        <tr key={id}>
-          <td>
-            <a
-              href={`https://www.facebook.com/${this.state.page_id}/posts/${item.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-            <svg className="fb" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 58">
-              <path d="M54.8,0H3.2A3.2,3.2,0,0,0,0,3.2V54.8A3.2,3.2,0,0,0,3.2,58H31V35.57H23.45V26.79H31V20.33c0-7.49,4.58-11.57,11.26-11.57A64.2,64.2,0,0,1,49,9.1v7.83h-4.6c-3.64,0-4.35,1.72-4.35,4.26v5.59h8.7l-1.13,8.78H40V58H54.8A3.2,3.2,0,0,0,58,54.8V3.2A3.2,3.2,0,0,0,54.8,0Z"/>
-            </svg>
-            </a>
-
-            <svg className="place" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-            </svg>
-          </td>
-          <td>{item.building}</td>
-          <td>{item.level}</td>
-          <td>{item.type.substr(0, 6)}</td>
-          <td>{item.rating}</td>
-          <td>{item.timestamp}</td>
-          <td>{item.notes.replace(/(\[|\]|\(|\))/g, '')}</td>
-        </tr>
+        <ReviewTableRow
+          key={id}
+          page_id={this.state.page_id}
+          id={item.id}
+          building={item.building}
+          level={item.level}
+          type={item.type}
+          rating={item.rating}
+          timestamp={item.timestamp}
+          notes={item.notes}
+          moveMap={this.props.moveMap}
+        />
       ) : null;
 
       return tableRow;

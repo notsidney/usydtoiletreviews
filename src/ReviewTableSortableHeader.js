@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import './ReviewTableSortableHeader.css';
 
-class ReviewTableSortableHeader extends Component {
+class ReviewTableSortableHeader extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -11,10 +11,10 @@ class ReviewTableSortableHeader extends Component {
   render() {
     return (
       <th
-        className={`sortable${this.state.reverse ? '': ' reversed'}`}
-        onClick={(e) => {
+        className={`sortable${this.state.reverse ? '' : ' reversed'}`}
+        onClick={() => {
           this.props.clickHandler(
-            this.props.title.toLowerCase(), this.state.reverse
+            this.props.title.toLowerCase(), this.state.reverse,
           );
           this.setState(prevState => ({ reverse: !(prevState.reverse) }));
         }}

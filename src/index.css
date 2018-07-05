@@ -5,5 +5,14 @@
 body {
   margin: 0;
   padding: 0;
+
+  background-color: #f2f2f2;
+
   font-family: sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+
+  background-color: #fff;
 }

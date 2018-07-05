@@ -1,8 +1,9 @@
+
 .app {
   box-sizing: border-box;
   max-width: 64rem;
   margin: 0 auto;
-  padding: 0 1.25rem;
+  padding: 20.875rem 1.25rem 0;
 
   font-family: 'IBM Plex Sans Condensed', sans-serif;
   color: #333;
@@ -11,6 +12,9 @@
 .app-header {
   display: flex;
   align-items: flex-end;
+
+  position: relative;
+  z-index: 999;
 }
 
 .logo-container {
@@ -55,9 +59,105 @@
   opacity: 1;
 }
 
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+
+  width: 100%;
+  width: 100vw;
+  height: 24rem;
+
+  background-color: #f2f2f2;
+}
+
+.app-footer-container {
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+
+  width: 100vw;
+
+  background-color: #f2f2f2;
+}
+.app-footer {
+  max-width: 64rem;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3rem;
+
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  width: auto;
+  height: 2.5rem;
+  margin-right: 6.5rem;
+}
+
+.footer-like {
+  flex: 1 0 15rem;
+
+  margin: 1.5rem 0 0 1.8rem;
+
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #E64626;
+  text-decoration: none;
+  line-height: 1.5rem;
+
+  transition: color .2s;
+}
+.footer-like:hover,
+.footer-like:active {
+  color: #333;
+}
+.footer-like svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: top;
+
+  fill: #333;
+}
+
+.footer-disclaimer {
+  max-width: 24rem;
+  margin: 4rem 0 0 4rem;
+  position: relative;
+
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: .75rem;
+  color: rgba(0,0,0,.5);
+}
+.footer-disclaimer::before {
+  content: '';
+  display: block;
+  position: relative;
+  top: -1.5rem;
+
+  width: 2rem;
+  height: .1875rem;
+
+  background-color: rgba(0,0,0,.36);
+}
+
 @media (max-width: 48rem) {
+  .app {
+    padding-top: 0;
+  }
+
   .app-header {
     display: block;
+    margin-top: -.75rem;
+  }
+
+  .map {
+    position: static;
+    margin-left: -1.25rem;
   }
 }
 
@@ -65,6 +165,7 @@
   .app-header {
     width: 100vw;
     margin-left: -1.25rem;
+    margin-top: -.25rem;
   }
 
   .logo-container {

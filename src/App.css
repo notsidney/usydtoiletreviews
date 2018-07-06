@@ -3,7 +3,7 @@
   box-sizing: border-box;
   max-width: 64rem;
   margin: 0 auto;
-  padding: 20.875rem 1.25rem 0;
+  padding: 21.875rem 1.25rem 0;
 
   font-family: 'IBM Plex Sans Condensed', sans-serif;
   color: #333;
@@ -70,7 +70,7 @@
 
   width: 100%;
   width: 100vw;
-  height: 24rem;
+  height: 25rem;
 
   background-color: #f2f2f2;
 }
@@ -164,6 +164,9 @@
   .map {
     position: static;
     margin-left: -1.25rem;
+    min-height: 18rem;
+    max-height: 25rem;
+    height: 50vh;
   }
 }
 

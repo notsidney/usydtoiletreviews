@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import axios from 'axios';
 import '../css/ReviewTable.css';
-import secrets from './secrets';
 import ReviewTableSortableHeader from './ReviewTableSortableHeader';
 import ReviewTableRow from './ReviewTableRow';
 
@@ -21,7 +20,7 @@ class ReviewTable extends PureComponent {
   }
 
   componentDidMount() {
-    axios.get(secrets.APIURL)
+    axios.get(process.env.REACT_APP_API_URL)
       .then((response) => {
         // Loop through each post and store it as a key-value pair
         const posts = {};

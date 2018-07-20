@@ -5,4 +5,6 @@ A single-page React web app that lists reviews from the USYD Toilet Reviews Face
 
 Requests the [USYD Toilet Reviews API](https://github.com/notseenee/usydtoiletreviews-api) to get the reviews.
 
+![Screenshot](public/promo.png)
+
 [Currently hosted on Netlify](https://usydtoiletreviews.netlify.com/)

@@ -44,7 +44,7 @@
   margin: 0;
   border-radius: 0;
 
-  background-image: url('search.svg');
+  background-image: url('../svg/search.svg');
   background-repeat: no-repeat;
   background-size: 2rem;
   background-position: .75rem 50%;

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import axios from 'axios';
-import './ReviewTable.css';
+import '../css/ReviewTable.css';
+import secrets from './secrets';
 import ReviewTableSortableHeader from './ReviewTableSortableHeader';
 import ReviewTableRow from './ReviewTableRow';
 
@@ -20,7 +21,7 @@ class ReviewTable extends PureComponent {
   }
 
   componentDidMount() {
-    axios.get('https://usydtoiletreviews-api.herokuapp.com/')
+    axios.get(secrets.APIURL)
       .then((response) => {
         // Loop through each post and store it as a key-value pair
         const posts = {};

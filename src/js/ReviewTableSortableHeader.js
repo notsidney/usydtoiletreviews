@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import './ReviewTableSortableHeader.css';
+import '../css/ReviewTableSortableHeader.css';
 
 class ReviewTableSortableHeader extends PureComponent {
   constructor(props) {

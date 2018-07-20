@@ -1,5 +1,5 @@
 import React from 'react';
-import './ReviewTableRow.css';
+import '../css/ReviewTableRow.css';
 
 const ReviewTableRow = props => (
   <tr>

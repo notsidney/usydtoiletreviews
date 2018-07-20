@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { animateScroll } from 'react-scroll';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../svg/logo.svg';
+import '../css/App.css';
+import secrets from './secrets';
 import ReviewTable from './ReviewTable';
 
 class App extends PureComponent {
@@ -10,7 +11,7 @@ class App extends PureComponent {
 
     this.state = {
       searchTerm: '',
-      mapLoc: 'https://www.google.com/maps/embed/v1/view?key=AIzaSyDzdGLNdGdr8kipk4O4p-5OEP_EB2pyCPQ&center=-33.888584,151.187347&zoom=16',
+      mapLoc: `https://www.google.com/maps/embed/v1/view?key=${secrets.GMAPSKEY}&center=-33.888584,151.187347&zoom=16`,
     };
 
     this.moveMap = this.moveMap.bind(this);
@@ -18,10 +19,10 @@ class App extends PureComponent {
 
   moveMap(loc) {
     const urlBase = 'https://www.google.com/maps/embed/v1/place?key=';
-    const apiKey = 'AIzaSyDzdGLNdGdr8kipk4O4p-5OEP_EB2pyCPQ';
+    const apiKey = secrets.GMAPSKEY;
     const formattedLoc = encodeURIComponent(loc.replace(' ', '+'));
     this.setState({
-      mapLoc: urlBase + apiKey + '&q=' + formattedLoc + '+University+of+Sydney',
+      mapLoc: `${urlBase}${apiKey}&q=${formattedLoc}+University+of+Sydney`,
     });
     animateScroll.scrollToTop();
   }

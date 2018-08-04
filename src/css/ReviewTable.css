@@ -39,7 +39,10 @@ th {
   cursor: default;
 }
 
-h1.loading {
-  margin: 8rem 0;
+.loading {
+  margin: 6rem auto 16rem;
   text-align: center;
+}
+.loading * {
+  margin: 0 auto;
 }

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import axios from 'axios';
+import { GridLoader } from 'react-spinners';
 import '../css/ReviewTable.css';
 import ReviewTableSortableHeader from './ReviewTableSortableHeader';
 import ReviewTableRow from './ReviewTableRow';
@@ -71,9 +72,9 @@ class ReviewTable extends PureComponent {
     // Render something else when downloading
     if (this.state.downloading) {
       return (
-        <h1 className="loading">
-          Loading data…
-        </h1>
+        <div className="loading">
+          <GridLoader />
+        </div>
       );
     }
     // Otherwise, render content

@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import { animateScroll } from 'react-scroll';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import logo from '../svg/logo.svg';
 import '../css/App.css';
 import ReviewTable from './ReviewTable';
+import PostOverlay from './PostOverlay';
 
 class App extends PureComponent {
   constructor(props) {
@@ -11,9 +13,22 @@ class App extends PureComponent {
     this.state = {
       searchTerm: '',
       mapLoc: `https://www.google.com/maps/embed/v1/view?key=${process.env.REACT_APP_GMAPS_KEY}&center=-33.888584,151.187347&zoom=16`,
+      showPostURL: ''
     };
 
+    this.showPost = this.showPost.bind(this);
+    this.hidePost = this.hidePost.bind(this);
     this.moveMap = this.moveMap.bind(this);
+  }
+
+  showPost(pageID, postID) {
+    this.setState({
+      showPostURL: `https://www.facebook.com/${pageID}/posts/${postID}`
+    });
+  }
+
+  hidePost() {
+    this.setState({ showPostURL: '' });
   }
 
   moveMap(loc) {
@@ -27,19 +42,33 @@ class App extends PureComponent {
   }
 
   render() {
+    const postOverlay = this.state.showPostURL ? (
+      <PostOverlay
+        url={this.state.showPostURL}
+        key={this.state.showPostURL}
+        hidePost={this.hidePost}
+      />
+    ) : null;
+
     return (
       <div className="app">
-        <iframe
+        {/* <iframe
           frameBorder="0"
           className="map"
           title="map"
           src={this.state.mapLoc}
-        />
+        /> */}
 
         <header className="app-header">
-          <div className="logo-container">
-            <img src={logo} className="logo" alt="USYD Toilet Reviews logo" />
-          </div>
+          <a
+            href="https://www.facebook.com/221844801737554"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="logo-container">
+              <img src={logo} className="logo" alt="USYD Toilet Reviews logo" />
+            </div>
+          </a>
           <input
             type="text"
             className="search-box"
@@ -50,6 +79,7 @@ class App extends PureComponent {
 
         <ReviewTable
           searchTerm={this.state.searchTerm}
+          showPost={this.showPost}
           moveMap={this.moveMap}
         />
 
@@ -73,6 +103,15 @@ class App extends PureComponent {
             </div>
           </footer>
         </div>
+
+        <ReactCSSTransitionGroup
+          transitionName="postoverlay"
+          transitionEnterTimeout={1200}
+          transitionLeaveTimeout={400}
+        >
+          {postOverlay}
+        </ReactCSSTransitionGroup>
+
       </div>
     );
   }

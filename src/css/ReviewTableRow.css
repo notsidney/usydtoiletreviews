@@ -20,20 +20,19 @@ td svg {
   vertical-align: bottom;
   cursor: pointer;
 }
-td svg:hover,
-td svg:active {
+td svg:hover {
   fill: #E64626;
 }
-
-td a {
-  height: 1.5rem;
-  display: inline-block;
-  margin-right: 1rem;
+td svg:active {
+  fill: #000;
+  transition: fill 0s;
 }
+
 td svg.fb {
   width: 1.25rem;
   height: 1.25rem;
   padding: .125rem 0;
+  margin-right: 1rem;
 }
 td svg.place {
   width: 1.5rem;

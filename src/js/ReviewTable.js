@@ -99,6 +99,7 @@ class ReviewTable extends PureComponent {
           rating={item.rating}
           timestamp={item.timestamp}
           notes={item.notes}
+          showPost={this.props.showPost}
           moveMap={this.props.moveMap}
         />
       ) : null;

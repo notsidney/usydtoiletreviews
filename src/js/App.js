@@ -52,12 +52,12 @@ class App extends PureComponent {
 
     return (
       <div className="app">
-        {/* <iframe
+        <iframe
           frameBorder="0"
           className="map"
           title="map"
           src={this.state.mapLoc}
-        /> */}
+        />
 
         <header className="app-header">
           <a
